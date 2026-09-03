@@ -193,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Continue Button
         continueBtn.addEventListener('click', () => {
             landing.classList.add('hidden');
+            document.body.classList.remove('no-scroll');
             
             // Auto-scroll to top smoothly so the hero section is perfectly in view
             window.scrollTo({ top: 0, behavior: 'smooth' });
