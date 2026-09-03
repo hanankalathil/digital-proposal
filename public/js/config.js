@@ -11,7 +11,7 @@ const CONFIG = {
         heading: "There's something hidden here.",
         supportText: "Take your time...",
         instruction: "✦ Scratch to reveal",
-        hiddenPhoto: "assets/photos/whatsapp_image.jpeg",
+        hiddenPhoto: "/assets/photos/whatsapp_image.jpeg",
         caption: "One of those moments worth keeping.",
         date: "August 2025",
         personalMessage: "Some memories deserve their own little place, Josna.",
@@ -22,12 +22,12 @@ const CONFIG = {
     
     // Background Music
     music: {
-        src: "assets/music/Parayuvaan_From_Ishq_Jakes_Bejoy,_Sid_Sriram,_Neha_S_Nair,.m4a"
+        src: "/assets/music/Parayuvaan_From_Ishq_Jakes_Bejoy,_Sid_Sriram,_Neha_S_Nair,.m4a"
     },
 
     // Main Hero Section
     hero: {
-        photoSrc: "assets/photos/Screenshot_2026-09-03_203807.png",
+        photoSrc: "/assets/photos/Screenshot_2026-09-03_203807.png",
         captionSmall: "Of all the moments I've kept...",
         captionLarge: "This one feels like home, Suttumani."
     },
@@ -43,22 +43,22 @@ const CONFIG = {
         {
             date: "Our First Hello",
             description: "The moment everything changed.",
-            photoSrc: "assets/photos/Screenshot_2026-09-03_203807.png"
+            photoSrc: "/assets/photos/Screenshot_2026-09-03_203807.png"
         },
         {
             date: "The First Photo",
             description: "We didn't know it was the start of something beautiful.",
-            photoSrc: "assets/photos/Screenshot_2026-09-03_203822.png"
+            photoSrc: "/assets/photos/Screenshot_2026-09-03_203822.png"
         },
         {
             date: "That Unforgettable Day",
             description: "Just us, lost in our own little world.",
-            photoSrc: "assets/photos/Screenshot_2026-09-03_203831.png"
+            photoSrc: "/assets/photos/Screenshot_2026-09-03_203831.png"
         },
         {
             date: "Today",
             description: "Still falling for you, every single day, Suttumani.",
-            photoSrc: "assets/photos/Screenshot_2026-09-03_203841.png"
+            photoSrc: "/assets/photos/Screenshot_2026-09-03_203841.png"
         }
     ],
 
@@ -77,7 +77,7 @@ const CONFIG = {
 
     // Final Section
     final: {
-        photoSrc: "assets/photos/Screenshot_2026-09-03_204028.png",
+        photoSrc: "/assets/photos/Screenshot_2026-09-03_204028.png",
         textLine1: "More memories are waiting to be made.",
         emoji: "❤️",
         textLine2: "Thank you for being one of my favorite parts of this life, Josna."
