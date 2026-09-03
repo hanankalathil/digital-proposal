@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Scratch Card Canvas Styles */
+        #scratch-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+        }
+        #landing-content {
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        #scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            cursor: crosshair;
+        }
+        
+        /* Animated Overlay Text */
+        #scratch-overlay-text {
+            position: absolute;
+            z-index: 3;
+            pointer-events: none;
+            color: #FFFFFF;
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+            animation: pulseText 2.5s ease-in-out infinite;
+            transition: opacity 0.5s ease;
+        }
+        
+        @keyframes pulseText {
+            0% { opacity: 0.7; transform: scale(0.98); text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+            50% { opacity: 1; transform: scale(1.02); text-shadow: 0 2px 20px rgba(255,255,255,0.2), 0 2px 15px rgba(0,0,0,0.5); }
+            100% { opacity: 0.7; transform: scale(0.98); text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        }
+
+        /* Heart particles animation for romance */
+        .heart {
+            position: absolute;
+            color: var(--color-rose);
+            font-size: 24px;
+            pointer-events: none;
+            animation: floatUp 2.5s ease-out forwards;
+            z-index: 3;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5); opacity: 1; }
+            50% { transform: translateY(-50px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scratch Reveal Screen -->
+    <div id="landing">
+        <div class="landing-background"></div>
+        
+        <div class="landing-header">
+            <button id="landing-back-btn" class="nav-btn"></button>
+            <p id="landing-small-intro" class="handwritten"></p>
+            <h1 id="landing-title"></h1>
+            <p id="landing-support-text"></p>
+        </div>
+
+        <div class="landing-content-wrapper">
+            <div id="scratch-card-container">
+                <!-- Hidden Content -->
+                <div class="hidden-memory">
+                    <div class="memory-photo-wrapper">
+                        <img id="memory-photo" src="" alt="Memory">
+                    </div>
+                    <div class="memory-details">
+                        <p id="memory-message" class="handwritten"></p>
+                        <p id="memory-caption"></p>
+                        <span id="memory-date"></span>
+                    </div>
+                </div>
+                
+                <!-- Scratch Surface -->
+                <canvas id="scratch-canvas"></canvas>
+                <div id="scratch-instruction"></div>
+            </div>
+        </div>
+
+        <div class="landing-footer">
+            <div id="scratch-progress-container">
+                <span id="scratch-progress-text">0% revealed</span>
+                <div class="progress-bar">
+                    <div id="scratch-progress-fill"></div>
+                </div>
+            </div>
+            <button id="landing-continue-btn" class="continue-btn hidden"></button>
+            <button id="reveal-skip-btn" class="skip-btn">Reveal without scratching</button>
+        </div>
+    </div>
+
+    <!-- Navigation & Music -->
+    <header>
+        <div class="music-player" id="music-player-btn">
+            <button id="music-toggle" class="music-btn">
+                <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="icon-pause" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+            <div class="music-status" id="music-status">
+                <div class="music-dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <audio id="bg-music" loop></audio>
+
+    <!-- Main Content -->
+    <section class="hero reveal-on-scroll">
+        <div class="hero-photo-wrapper">
+            <img id="hero-img" class="hero-photo" src="" alt="Hero">
+        </div>
+        <h3 id="hero-small" class="handwritten"></h3>
+        <h1 id="hero-large"></h1>
+    </section>
+
+    <section class="gallery-section reveal-on-scroll">
+        <p id="gallery-text-1" class="memory-text"></p>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="assets/photos/Screenshot 2026-09-03 203807.png" alt="Memory">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/photos/Screenshot 2026-09-03 203822.png" alt="Memory">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/photos/Screenshot 2026-09-03 203831.png" alt="Memory">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/photos/Screenshot 2026-09-03 203841.png" alt="Memory">
+            </div>
+        </div>
+        <p id="gallery-text-2" class="memory-text"></p>
+    </section>
+
+    <section class="timeline-section reveal-on-scroll">
+        <div id="timeline-container" class="timeline-container">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <section class="letter-section reveal-on-scroll">
+        <h2 id="letter-title"></h2>
+        <div class="letter-wrapper">
+            <button id="letter-btn" class="btn-primary"></button>
+            <div id="letter-content" class="letter-content"></div>
+        </div>
+    </section>
+
+    <section class="envelope-section reveal-on-scroll">
+        <p id="envelope-prompt" class="handwritten"></p>
+        <div id="envelope" class="envelope">
+            <div id="envelope-paper" class="envelope-paper"></div>
+        </div>
+    </section>
+
+    <section class="final-section reveal-on-scroll">
+        <img id="final-img" class="final-photo" src="" alt="Final">
+        <p id="final-text-1"></p>
+        <h2 id="final-emoji"></h2>
+        <p id="final-text-2"></p>
+    </section>
+    
+    <section class="proposal-section reveal-on-scroll">
+        <h2 class="proposal-title">Will you be mine, Josna?</h2>
+        <h1 class="proposal-question">Forever and always, my Suttumani.</h1>
+        <div class="proposal-buttons">
+            <button id="btn-yes" class="btn-proposal btn-yes">Yes</button>
+            <button id="btn-no" class="btn-proposal btn-no">No</button>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="Lightbox">
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
