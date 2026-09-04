@@ -164,7 +164,13 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => progressContainer.style.display = 'none', 500);
             
             container.classList.add('revealed');
-            continueBtn.classList.add('visible');
+            
+            skipBtn.style.opacity = '0';
+            setTimeout(() => {
+                skipBtn.style.display = 'none';
+                continueBtn.style.display = 'block';
+                setTimeout(() => continueBtn.classList.add('visible'), 10);
+            }, 500);
             
             setTimeout(() => {
                 canvas.style.display = 'none';

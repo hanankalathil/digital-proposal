@@ -307,8 +307,7 @@
        cursor: pointer;
        border-radius: 30px;
        transition: all 0.4s ease;
-       position: absolute;
-       top: 2rem;
+       display: none;
        opacity: 0;
        visibility: hidden;
        transform: translateY(10px);
