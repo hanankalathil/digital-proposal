@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let isDrawing = false;
         let isRevealed = false;
         let hasStarted = false;
+        let lastPos = null;
 
         function initCanvas() {
             const ratio = window.devicePixelRatio || 1;
@@ -118,17 +119,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 hasStarted = true;
             }
             
-            const pos = getMousePos(e);
+            const currentPos = getMousePos(e);
+            if (!lastPos) lastPos = currentPos;
+            
+            const dx = currentPos.x - lastPos.x;
+            const dy = currentPos.y - lastPos.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const steps = Math.max(1, Math.ceil(distance / 5));
             
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            // Use radial gradient for soft brush
-            const radGrad = ctx.createRadialGradient(pos.x, pos.y, 10, pos.x, pos.y, 40);
-            radGrad.addColorStop(0, 'rgba(0,0,0,1)');
-            radGrad.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = radGrad;
-            ctx.arc(pos.x, pos.y, 40, 0, Math.PI * 2);
-            ctx.fill();
+            
+            for (let i = 0; i <= steps; i++) {
+                const x = lastPos.x + (dx * i) / steps;
+                const y = lastPos.y + (dy * i) / steps;
+                
+                ctx.beginPath();
+                const radGrad = ctx.createRadialGradient(x, y, 10, x, y, 40);
+                radGrad.addColorStop(0, 'rgba(0,0,0,1)');
+                radGrad.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = radGrad;
+                ctx.arc(x, y, 40, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            lastPos = currentPos;
             
             checkCompletion();
         }
@@ -177,19 +191,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         }
 
-        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+        canvas.addEventListener('mousedown', (e) => { 
+            isDrawing = true; 
+            lastPos = getMousePos(e);
+            scratch(e); 
+        });
         canvas.addEventListener('mousemove', scratch);
-        window.addEventListener('mouseup', () => isDrawing = false);
+        window.addEventListener('mouseup', () => { 
+            isDrawing = false; 
+            lastPos = null;
+        });
         
         canvas.addEventListener('touchstart', (e) => { 
             isDrawing = true; 
             // Prevent scrolling on mobile while scratching
             document.body.style.overflow = 'hidden'; 
+            lastPos = getMousePos(e);
             scratch(e); 
         });
         canvas.addEventListener('touchmove', scratch, { passive: false });
         window.addEventListener('touchend', () => { 
             isDrawing = false;
+            lastPos = null;
             document.body.style.overflow = '';
         });
 
@@ -390,3 +413,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
