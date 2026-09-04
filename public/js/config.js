@@ -15,7 +15,7 @@ const CONFIG = {
         caption: "One of those moments worth keeping.",
         date: "August 2025",
         personalMessage: "Some memories deserve their own little place, Josna.",
-        revealThreshold: 65, // percentage
+        revealThreshold: 50, // percentage
         continueBtnText: "Continue →",
         backBtnText: "← Back"
     },
