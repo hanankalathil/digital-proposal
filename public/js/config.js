@@ -14,7 +14,7 @@ const CONFIG = {
         hiddenPhoto: "/assets/photos/whatsapp_image.jpeg",
         caption: "One of those moments worth keeping.",
         date: "August 2025",
-        personalMessage: "Some memories deserve their own little place, Ziya.",
+        personalMessage: "Some memories deserve their own little place, Josna.",
         revealThreshold: 30, // percentage
         continueBtnText: "Continue →",
         backBtnText: "← Back"
@@ -35,7 +35,7 @@ const CONFIG = {
     // Memory Gallery Text
     galleryText: {
         group1: "That random day that somehow became one of my favorites.",
-        group2: "Little moments. Big memories with my Ziya."
+        group2: "Little moments. Big memories with my Josna."
     },
 
     // Timeline Events
@@ -66,7 +66,7 @@ const CONFIG = {
     letter: {
         title: "A little something I wanted you to read.",
         buttonText: "Read it",
-        content: "My dearest Suttumani,\n\nI just wanted to make this space for us. A quiet little corner to remind you of how much you mean to me, Ziya. Every moment with you feels like a gift. Thank you for being you, and for choosing me.\n\nAlways yours."
+        content: "My dearest Suttumani,\n\nI just wanted to make this space for us. A quiet little corner to remind you of how much you mean to me, Josna. Every moment with you feels like a gift. Thank you for being you, and for choosing me.\n\nAlways yours."
     },
 
     // Interactive Surprise (Envelope)
@@ -80,6 +80,6 @@ const CONFIG = {
         photoSrc: "/assets/photos/Screenshot_2026-09-03_204028.png",
         textLine1: "More memories are waiting to be made.",
         emoji: "❤️",
-        textLine2: "Thank you for being one of my favorite parts of this life, Ziya."
+        textLine2: "Thank you for being one of my favorite parts of this life, Josna."
     }
 };
